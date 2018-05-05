@@ -7,7 +7,7 @@ namespace NeuralNetwork
 {
     public partial class Form1 : Form
     {
-        Net nn = new Net(0.09, new int[] { 2, 2, 1 });
+        Net nn = new Net(0.9, new int[] { 2, 10, 6 });
 
         public Form1()
         {
@@ -22,7 +22,7 @@ namespace NeuralNetwork
         private void Render()
         {
             NetworkHelper.ToTreeView(treeView1, nn);
-            NetworkHelper.ToPictureBox(pictureBox1, nn, 400, 100);
+            NetworkHelper.ToPictureBox(pictureBox1, nn);
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -33,208 +33,68 @@ namespace NeuralNetwork
             ds.Add(new DataSet(new double[] { 1, 0 }, new double[] { 1 }));
             ds.Add(new DataSet(new double[] { 1, 1 }, new double[] { 0 }));
 
-            nn.Train(ds,10);
+            nn.Train(ds, 1000);
 
             Render();
         }
 
-        /*
-        private double Xor(int x, int y)
+        private void button2_Click(object sender, EventArgs e)
         {
-            if (x == 0 && y == 0) return 0d;
-            if (x == 1 && y == 0) return 1d;
-            if (x == 0 && y == 1) return 1d;
-            if (x == 1 && y == 1) return 0d;
-            return 0;
-        }
-
-        private double And(int x, int y)
-        {
-            if (x == 0 && y == 0) return 0d;
-            if (x == 1 && y == 0) return 0d;
-            if (x == 0 && y == 1) return 0d;
-            if (x == 1 && y == 1) return 1d;
-            return 0;
-        }
-
-
-        private void button4_Click(object sender, EventArgs e)
-        {
-            List<double> ins = new List<double>();
-            ins.Add(0);
-            ins.Add(0);
-
-            List<double> ots = new List<double>();
-            ots.Add(0);
-
-            for (int i = 0; i < 1; i++)
-                nn.Train(ins, ots);
-
-            NetworkHelper.ToTreeView(treeView1, nn);
-            NetworkHelper.ToPictureBox(pictureBox1, nn, 400, 100);
-        }
-
-        private void button5_Click(object sender, EventArgs e)
-        {
-            List<double> ins = new List<double>();
-            ins.Add(0);
-            ins.Add(1);
-
-            List<double> ots = new List<double>();
-            ots.Add(1);
-
-            for (int i = 0; i < 1; i++)
-                nn.Train(ins, ots);
-
-            NetworkHelper.ToTreeView(treeView1, nn);
-            NetworkHelper.ToPictureBox(pictureBox1, nn, 400, 100);
-        }
-
-        private void button6_Click(object sender, EventArgs e)
-        {
-            List<double> ins = new List<double>();
-            ins.Add(1);
-            ins.Add(0);
-
-            List<double> ots = new List<double>();
-            ots.Add(1);
-
-            for (int i = 0; i < 1; i++)
-                nn.Train(ins, ots);
-
-            NetworkHelper.ToTreeView(treeView1, nn);
-            NetworkHelper.ToPictureBox(pictureBox1, nn, 400, 100);
-        }
-
-        private void button7_Click(object sender, EventArgs e)
-        {
-            List<double> ins = new List<double>();
-            ins.Add(1);
-            ins.Add(1);
-
-            List<double> ots = new List<double>();
-            ots.Add(0);
-
-            for (int i = 0; i < 1; i++)
-                nn.Train(ins, ots);
-
-            NetworkHelper.ToTreeView(treeView1, nn);
-            NetworkHelper.ToPictureBox(pictureBox1, nn, 400, 100);
+            nn.Feedforward(new DataSet(new double[] { 0, 0 }, new double[] { 0 }));
+            Render();
         }
 
         private void button3_Click(object sender, EventArgs e)
         {
-            List<double> ins = new List<double>();
-            ins.Add(0);
-            ins.Add(0);
-
-            nn.FeedForward(ins);
-
-            NetworkHelper.ToTreeView(treeView1, nn);
-            NetworkHelper.ToPictureBox(pictureBox1, nn, 400, 100);
+            nn.Feedforward(new DataSet(new double[] { 0, 1 }, new double[] { 1 }));
+            Render();
         }
 
-        private void button8_Click(object sender, EventArgs e)
+        private void button4_Click(object sender, EventArgs e)
         {
-            List<double> ins = new List<double>();
-            ins.Add(0);
-            ins.Add(1);
-
-            nn.FeedForward(ins);
-
-            NetworkHelper.ToTreeView(treeView1, nn);
-            NetworkHelper.ToPictureBox(pictureBox1, nn, 400, 100);
+            nn.Feedforward(new DataSet(new double[] { 1, 0 }, new double[] { 1 }));
+            Render();
         }
 
-        private void button9_Click(object sender, EventArgs e)
+        private void button5_Click(object sender, EventArgs e)
         {
-            List<double> ins = new List<double>();
-            ins.Add(1);
-            ins.Add(0);
-
-            nn.FeedForward(ins);
-
-            NetworkHelper.ToTreeView(treeView1, nn);
-            NetworkHelper.ToPictureBox(pictureBox1, nn, 400, 100);
-        }
-
-        private void button10_Click(object sender, EventArgs e)
-        {
-            List<double> ins = new List<double>();
-            ins.Add(1);
-            ins.Add(1);
-
-            nn.FeedForward(ins);
-
-            NetworkHelper.ToTreeView(treeView1, nn);
-            NetworkHelper.ToPictureBox(pictureBox1, nn, 400, 100);
+            nn.Feedforward(new DataSet(new double[] { 1, 1 }, new double[] { 0 }));
+            Render();
         }
 
 
-        private void button1_Click(object sender, EventArgs e)
+        private void button6_Click(object sender, EventArgs e)
         {
-            List<double> ins = new List<double>();
-            List<double> ots = new List<double>();
-
-            for (int j = 0; j < 5000; j++)
+            try
             {
-                ins.Add(0);
-                ins.Add(0);
-                ots.Add(Xor(0, 0));
-                nn.Train(ins, ots);
-                ins.Clear();
-                ots.Clear();
-
-                ins.Add(0);
-                ins.Add(1);
-                ots.Add(Xor(0, 1));
-                nn.Train(ins, ots);
-                ins.Clear();
-                ots.Clear();
-
-                ins.Add(1);
-                ins.Add(0);
-                ots.Add(Xor(1, 0));
-                nn.Train(ins, ots);
-                ins.Clear();
-                ots.Clear();
-
-                ins.Add(1);
-                ins.Add(1);
-                ots.Add(Xor(1, 1));
-                nn.Train(ins, ots);
-                ins.Clear();
-                ots.Clear();
-            }
-
-            NetworkHelper.ToTreeView(treeView1, nn);
-            NetworkHelper.ToPictureBox(pictureBox1, nn, 400, 100);
-        }
-
-        private void button2_Click(object sender, EventArgs e)
-        {
-            // por cada capa desde la ultima capa L
-            for (int l = nn.Layers.Count - 1; l >= 1; l--)     // i=2,1
-            {
-                // por cada neurona
-                for (int j = 0; j < nn.Layers[l].Neurons.Count; j++)
+                // por cada capa desde la ultima capa L
+                for (int l = nn.layers.Count - 1; l >= 1; l--)     // i=2,1
                 {
-                    Neuron n = nn.Layers[l].Neurons[j];
-                    n.Bias = Convert.ToDouble(Microsoft.VisualBasic.Interaction.InputBox("Bias L" + l + " N" + j), System.Globalization.CultureInfo.InvariantCulture);
+                    // por cada neurona
+                    for (int j = 0; j < nn.layers[l].neuronas.Count; j++)
+                    {
+                        Neuron n = nn.layers[l].neuronas[j];
+                        n.bias = Convert.ToDouble(Microsoft.VisualBasic.Interaction.InputBox("Bias L" + l + " N" + j), System.Globalization.CultureInfo.InvariantCulture);
 
-                    NetworkHelper.ToTreeView(treeView1, nn);
-                    NetworkHelper.ToPictureBox(pictureBox1, nn, 400, 100);
+                        Render();
 
-                    for (int k = 0; k < n.Dendrites.Count; k++)
-                        n.Dendrites[k].Weight = Convert.ToDouble(Microsoft.VisualBasic.Interaction.InputBox("Weight L" + l + " W" + j + k), System.Globalization.CultureInfo.InvariantCulture);
+                        for (int k = 0; k < n.dentritas.Count; k++)
+                            n.dentritas[k].weight = Convert.ToDouble(Microsoft.VisualBasic.Interaction.InputBox("Weight L" + l + " W" + j + k), System.Globalization.CultureInfo.InvariantCulture);
 
-
-                    NetworkHelper.ToTreeView(treeView1, nn);
-                    NetworkHelper.ToPictureBox(pictureBox1, nn, 400, 100);
+                        Render();
+                    }
                 }
             }
-        }
-        */
-    }
+            catch (Exception)
+            {
 
+
+            }
+        }
+
+        private void ResiezePictureNet(object sender, EventArgs e)
+        {
+            Render();
+        }
+    }
 }

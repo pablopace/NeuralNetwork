@@ -19,17 +19,18 @@ namespace NeuralNetwork
                 layer.neuronas.ForEach((neuron) =>
                 {
                     TreeNode nnode = new TreeNode("Neuron");
-                    nnode.Nodes.Add("Bias: " + neuron.bias.ToString("0.0000000000"));
-                    nnode.Nodes.Add("Delta: " + neuron.delta.ToString("0.0000000000"));
-                    nnode.Nodes.Add("Value: " + neuron.a.ToString("0.0000000000"));
-                    //nnode.Nodes.Add("Error: " + neuron..ToString("0.0000000000"));
+                    nnode.Nodes.Add("Value: " + neuron.a.ToString("0.0000"));
 
                     if (neuron.dentritas != null)
                     {
+                        nnode.Nodes.Add("Bias: " + neuron.bias.ToString("0.0000"));
+                        nnode.Nodes.Add("Delta: " + neuron.delta.ToString("0.0000"));
+                        //nnode.Nodes.Add("Error: " + neuron..ToString("0.0000000000"));
+
                         neuron.dentritas.ForEach((dendrite) =>
                         {
                             TreeNode dnode = new TreeNode("Dendrite");
-                            dnode.Nodes.Add("Weight: " + dendrite.weight.ToString());
+                            dnode.Nodes.Add("Weight: " + dendrite.weight.ToString("0.0000"));
                             nnode.Nodes.Add(dnode);
                         });
                     }
@@ -45,11 +46,14 @@ namespace NeuralNetwork
             t.Nodes.Add(root);
         }
 
-        public static void ToPictureBox(PictureBox p, Net nn, int X, int Y)
+        public static void ToPictureBox(PictureBox p, Net nn)
         {
+            int X = 400;
+            int Y = 100;
+
             int neuronWidth = 30;
             int neuronDistance = 50;
-            int layerDistance = 50;
+            int layerDistance = 100;
             int fontSize = 8;
 
             int weightOffsetX = 15;
