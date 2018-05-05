@@ -17,6 +17,7 @@ namespace NeuralNetwork.NeuralNetwork
 
         public Neuron()
         {
+            outputDentrites = new List<Dentrite>();
 
         }
 
@@ -27,7 +28,9 @@ namespace NeuralNetwork.NeuralNetwork
 
             foreach (Neuron n in anterior.neuronas)
             {
-                dentritas.Add(new Dentrite(n, this));
+                Dentrite dentrita = new Dentrite(n, this);
+                dentritas.Add(dentrita);
+                n.outputDentrites.Add(dentrita);
             }
         }
 
@@ -36,6 +39,7 @@ namespace NeuralNetwork.NeuralNetwork
             a = Formulas.Sigmoid(bias + dentritas.Sum(d => d.weight * d.inputNeuron.a));
         }
 
+        //delta para neuronas de ultima capa (con dataset.outputs)
         public void Delta(DataSet ds)
         {
             int i = 0;
@@ -45,6 +49,12 @@ namespace NeuralNetwork.NeuralNetwork
         public void Delta()
         {
             delta = outputDentrites.Sum(d => d.weight * d.outputNeuron.delta)* Formulas.SigmoidDx(a);
+        }
+
+        public void Update(double learningRate)
+        {
+            bias -= learningRate * delta;
+            dentritas.ForEach(d => d.weight -= learningRate * delta * d.inputNeuron.a);
         }
     }
 }

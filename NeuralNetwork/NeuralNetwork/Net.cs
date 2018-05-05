@@ -11,6 +11,7 @@ namespace NeuralNetwork.NeuralNetwork
         public List<Layer> layers;
         double learningRate;
 
+
         public Net(double learningRate, int[] layers )
         {
             if (layers.Length < 2) throw new System.ArgumentException("La red debe contener al menos 3 capas");
@@ -34,33 +35,7 @@ namespace NeuralNetwork.NeuralNetwork
 
         }
 
-        void Feedforward(DataSet ds)
-        {
-            if(ds.inputs.Length != layers[0].neuronas.Count)
-                throw new System.Exception("La cantidad de inputs en el DataSet difiere con la cant de neuronas en la primer capa");
-
-            int i = 0;
-            layers[0].neuronas.ForEach(n => n.a = ds.inputs[i++]);
-            layers.Skip<Layer>(1).ToList<Layer>().ForEach(l => l.Activacion());
-        }
-
-        void Backpropagation(DataSet ds)
-        {
-            if (ds.outputs.Length != layers[layers.Count - 1].neuronas.Count)
-                throw new System.Exception("La cantidad de outputs en el DataSet difiere con la cant de neuronas en la ultima capa");
-
-            //calculo delta en la ultima capa. 
-            layers[layers.Count - 1].neuronas.ForEach(n => n.Delta(ds));
-
-            // calculo delta en la capas intermedias hacia atras
-            for (int i = layers.Count-2; i > -1; i--)
-            {
-                layers[i].neuronas.ForEach(n=> n.Delta());
-            }
-            
-
-        }
-
+       
         public void Train(List<DataSet> sets, int epocas)
         {
             for (int i = 0; i < epocas; i++)
@@ -73,5 +48,41 @@ namespace NeuralNetwork.NeuralNetwork
             }
         }
 
+
+        public void Feedforward(DataSet ds)
+        {
+            if (ds.inputs.Length != layers[0].neuronas.Count)
+                throw new System.Exception("La cantidad de inputs en el DataSet difiere con la " +
+                    "cant de neuronas en la primer capa");
+
+            int i = 0;
+            layers[0].neuronas.ForEach(n => n.a = ds.inputs[i++]);
+            layers.Skip<Layer>(1).ToList<Layer>().ForEach(l => l.Activacion());
+        }
+
+
+        void Backpropagation(DataSet ds)
+        {
+            if (ds.outputs.Length != layers[layers.Count - 1].neuronas.Count)
+                throw new System.Exception("La cantidad de outputs en el DataSet difiere con la " +
+                    "cant de neuronas en la ultima capa");
+
+            //calculo delta en la ultima capa. 
+            layers[layers.Count - 1].neuronas.ForEach(n => n.Delta(ds));
+
+            // calculo delta en las capas intermedias hacia atras
+            for (int i = layers.Count - 2; i >= 1; i--)
+            {
+                layers[i].neuronas.ForEach(n => n.Delta());
+            }
+
+            // update todos los weights y bias
+            for (int i = layers.Count - 1; i >= 1; i--)
+            {
+                layers[i].neuronas.ForEach(n => n.Update(learningRate));
+            }
+
+
+        }
     }
 }
