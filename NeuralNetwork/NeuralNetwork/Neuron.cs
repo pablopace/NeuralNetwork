@@ -40,10 +40,9 @@ namespace NeuralNetwork.NeuralNetwork
         }
 
         //delta para neuronas de ultima capa (con dataset.outputs)
-        public void Delta(DataSet ds)
+        public void Delta(double y)
         {
-            int i = 0;
-            delta = 2 * (a - ds.outputs[i++]) * Formulas.SigmoidDx(a);
+            delta = 2 * (a - y) * Formulas.SigmoidDx(a);
         }
 
         public void Delta()

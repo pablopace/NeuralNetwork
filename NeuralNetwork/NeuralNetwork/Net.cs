@@ -68,7 +68,8 @@ namespace NeuralNetwork.NeuralNetwork
                     "cant de neuronas en la ultima capa");
 
             //calculo delta en la ultima capa. 
-            layers[layers.Count - 1].neuronas.ForEach(n => n.Delta(ds));
+            int j = 0;
+            layers[layers.Count - 1].neuronas.ForEach(n => n.Delta(ds.outputs[j++]));
 
             // calculo delta en las capas intermedias hacia atras
             for (int i = layers.Count - 2; i >= 1; i--)
