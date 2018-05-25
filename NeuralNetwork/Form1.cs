@@ -7,7 +7,7 @@ namespace NeuralNetwork
 {
     public partial class Form1 : Form
     {
-        Net nn = new Net(0.9, new int[] { 1, 10, 10});
+        Net nn = new Net(0.9, new int[] { 1, 5, 10});
 
         public Form1()
         {
