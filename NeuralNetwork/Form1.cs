@@ -64,7 +64,43 @@ namespace NeuralNetwork
 
         private void button5_Click(object sender, EventArgs e)
         {
+            nn.Feedforward(new DataSet(new double[] { 0.3 }, new double[] { 0, 0, 0, 1, 0, 0, 0, 0, 0, 0 }));
+            Render();
+        }
+
+        private void button7_Click(object sender, EventArgs e)
+        {
+            nn.Feedforward(new DataSet(new double[] { 0.4 }, new double[] { 0, 0, 0, 0, 1, 0, 0, 0, 0, 0 }));
+            Render();
+        }
+
+        private void button8_Click(object sender, EventArgs e)
+        {
+            nn.Feedforward(new DataSet(new double[] { 0.5 }, new double[] { 0, 0, 0, 0, 0, 1, 0, 0, 0, 0 }));
+            Render();
+        }
+
+        private void button9_Click(object sender, EventArgs e)
+        {
+            nn.Feedforward(new DataSet(new double[] { 0.6 }, new double[] { 0, 0, 0, 0, 0, 0, 1, 0, 0, 0 }));
+            Render();
+        }
+
+        private void button10_Click(object sender, EventArgs e)
+        {
             nn.Feedforward(new DataSet(new double[] { 0.7 }, new double[] { 0, 0, 0, 0, 0, 0, 0, 1, 0, 0 }));
+            Render();
+        }
+
+        private void button11_Click(object sender, EventArgs e)
+        {
+            nn.Feedforward(new DataSet(new double[] { 0.8 }, new double[] { 0, 0, 0, 0, 0, 0, 0, 0, 1, 0 }));
+            Render();
+        }
+
+        private void button12_Click(object sender, EventArgs e)
+        {
+            nn.Feedforward(new DataSet(new double[] { 0.9 }, new double[] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 1 }));
             Render();
         }
 
