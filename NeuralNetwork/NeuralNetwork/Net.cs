@@ -10,6 +10,7 @@ namespace NeuralNetwork.NeuralNetwork
     {
         public List<Layer> layers;
         double learningRate;
+        FormStats stats;
 
 
         public Net(double learningRate, int[] layers )
@@ -38,12 +39,21 @@ namespace NeuralNetwork.NeuralNetwork
        
         public void Train(List<DataSet> sets, int epocas)
         {
+            stats = new FormStats();
+            stats.Show();
+
             for (int i = 0; i < epocas; i++)
             {
+                int j = 0;
                 foreach (DataSet ds in sets)
                 {
                     Feedforward(ds);
-                    Backpropagation(ds);
+                    stats.ChangeText("Epoca: " + (i + 1).ToString() + "\n" +
+                        "Muestra: " + j++ + "\n " +
+                        "Error: " + Backpropagation(ds).ToString());
+
+                    stats.Refresh();
+
                 }
             }
         }
@@ -61,7 +71,7 @@ namespace NeuralNetwork.NeuralNetwork
         }
 
 
-        void Backpropagation(DataSet ds)
+        string Backpropagation(DataSet ds)
         {
             if (ds.outputs.Length != layers[layers.Count - 1].neuronas.Count)
                 throw new System.Exception("La cantidad de outputs en el DataSet difiere con la " +
@@ -83,7 +93,14 @@ namespace NeuralNetwork.NeuralNetwork
                 layers[i].neuronas.ForEach(n => n.Update(learningRate));
             }
 
+            string ret = layers[layers.Count - 1].neuronas.Sum(n => Math.Pow(n.error, 2)).ToString() + "\n";
 
+            int k = 0;
+            foreach (Neuron n in layers[layers.Count - 1].neuronas)
+            {
+                ret += (k++).ToString() + ": " + n.error.ToString() + "\n";
+            }
+            return ret;
         }
     }
 }

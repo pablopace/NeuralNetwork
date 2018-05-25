@@ -1,4 +1,5 @@
 ﻿using NeuralNetwork.NeuralNetwork;
+using System;
 using System.Drawing;
 using System.Windows.Forms;
 
@@ -76,6 +77,10 @@ namespace NeuralNetwork
                     {
                         for (int d = 0; d < n.dentritas.Count; d++)
                         {
+                            /*Color c = Color.FromArgb(
+                                (int) Math.Round( Formulas.Sigmoid(n.dentritas[d].weight) / 255d ),
+                                (int) Math.Round(Formulas.Sigmoid(n.dentritas[d].weight) * 255d),
+                                0 );*/
                             g.DrawLine(Pens.Black, x + weightOffsetX, y + weightOffsetY, X + weightOffsetX - (neuronDistance * (n.dentritas.Count / 2)) + neuronDistance * d, y + weightOffsetY - layerDistance);
                         }
                     }
@@ -110,4 +115,6 @@ namespace NeuralNetwork
             p.Image = b;
         }
     }
+
+
 }

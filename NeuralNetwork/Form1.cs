@@ -7,7 +7,7 @@ namespace NeuralNetwork
 {
     public partial class Form1 : Form
     {
-        Net nn = new Net(0.9, new int[] { 2, 10, 6 });
+        Net nn = new Net(0.9, new int[] { 1, 10, 10});
 
         public Form1()
         {
@@ -28,10 +28,16 @@ namespace NeuralNetwork
         private void button1_Click(object sender, EventArgs e)
         {
             List<DataSet> ds = new List<DataSet>();
-            ds.Add(new DataSet(new double[] { 0, 0 }, new double[] { 0 }));
-            ds.Add(new DataSet(new double[] { 0, 1 }, new double[] { 1 }));
-            ds.Add(new DataSet(new double[] { 1, 0 }, new double[] { 1 }));
-            ds.Add(new DataSet(new double[] { 1, 1 }, new double[] { 0 }));
+            ds.Add(new DataSet(new double[] { 0.0 }, new double[] { 1, 0, 0, 0, 0, 0, 0, 0, 0, 0 }));
+            ds.Add(new DataSet(new double[] { 0.1 }, new double[] { 0, 1, 0, 0, 0, 0, 0, 0, 0, 0 }));
+            ds.Add(new DataSet(new double[] { 0.2 }, new double[] { 0, 0, 1, 0, 0, 0, 0, 0, 0, 0 }));
+            ds.Add(new DataSet(new double[] { 0.3 }, new double[] { 0, 0, 0, 1, 0, 0, 0, 0, 0, 0 }));
+            ds.Add(new DataSet(new double[] { 0.4 }, new double[] { 0, 0, 0, 0, 1, 0, 0, 0, 0, 0 }));
+            ds.Add(new DataSet(new double[] { 0.5 }, new double[] { 0, 0, 0, 0, 0, 1, 0, 0, 0, 0 }));
+            ds.Add(new DataSet(new double[] { 0.6 }, new double[] { 0, 0, 0, 0, 0, 0, 1, 0, 0, 0 }));
+            ds.Add(new DataSet(new double[] { 0.7 }, new double[] { 0, 0, 0, 0, 0, 0, 0, 1, 0, 0 }));
+            ds.Add(new DataSet(new double[] { 0.8 }, new double[] { 0, 0, 0, 0, 0, 0, 0, 0, 1, 0 }));
+            ds.Add(new DataSet(new double[] { 0.9 }, new double[] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 1 }));
 
             nn.Train(ds, 1000);
 
@@ -40,25 +46,25 @@ namespace NeuralNetwork
 
         private void button2_Click(object sender, EventArgs e)
         {
-            nn.Feedforward(new DataSet(new double[] { 0, 0 }, new double[] { 0 }));
+            nn.Feedforward(new DataSet(new double[] { 0.0 }, new double[] { 1, 0, 0, 0, 0, 0, 0, 0, 0, 0 }));
             Render();
         }
 
         private void button3_Click(object sender, EventArgs e)
         {
-            nn.Feedforward(new DataSet(new double[] { 0, 1 }, new double[] { 1 }));
+            nn.Feedforward(new DataSet(new double[] { 0.1 }, new double[] { 0, 1, 0, 0, 0, 0, 0, 0, 0, 0 }));
             Render();
         }
 
         private void button4_Click(object sender, EventArgs e)
         {
-            nn.Feedforward(new DataSet(new double[] { 1, 0 }, new double[] { 1 }));
+            nn.Feedforward(new DataSet(new double[] { 0.2 }, new double[] { 0, 0, 1, 0, 0, 0, 0, 0, 0, 0 }));
             Render();
         }
 
         private void button5_Click(object sender, EventArgs e)
         {
-            nn.Feedforward(new DataSet(new double[] { 1, 1 }, new double[] { 0 }));
+            nn.Feedforward(new DataSet(new double[] { 0.7 }, new double[] { 0, 0, 0, 0, 0, 0, 0, 1, 0, 0 }));
             Render();
         }
 

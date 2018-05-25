@@ -55,6 +55,12 @@
     <Compile Include="NetworkHelper.cs" />
     <Compile Include="NeuralNetwork\DataSet.cs" />
     <Compile Include="NeuralNetwork\Dentrite.cs" />
+    <Compile Include="NeuralNetwork\FormStats.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="NeuralNetwork\FormStats.designer.cs">
+      <DependentUpon>FormStats.cs</DependentUpon>
+    </Compile>
     <Compile Include="NeuralNetwork\Formulas.cs" />
     <Compile Include="NeuralNetwork\Layer.cs" />
     <Compile Include="NeuralNetwork\Net.cs" />
@@ -63,6 +69,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="NeuralNetwork\FormStats.resx">
+      <DependentUpon>FormStats.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

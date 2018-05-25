@@ -13,6 +13,7 @@ namespace NeuralNetwork.NeuralNetwork
         public List<Dentrite> dentritas;
         List<Dentrite> outputDentrites;
         public double delta;
+        public double error;
         static Random random = new Random();
 
         public Neuron()
@@ -42,7 +43,8 @@ namespace NeuralNetwork.NeuralNetwork
         //delta para neuronas de ultima capa (con dataset.outputs)
         public void Delta(double y)
         {
-            delta = 2 * (a - y) * Formulas.SigmoidDx(a);
+            error = a - y;
+            delta = 2 * error * Formulas.SigmoidDx(a);
         }
 
         public void Delta()
@@ -54,6 +56,13 @@ namespace NeuralNetwork.NeuralNetwork
         {
             bias -= learningRate * delta;
             dentritas.ForEach(d => d.weight -= learningRate * delta * d.inputNeuron.a);
+        }
+
+
+
+        public override string ToString()
+        {
+            return "Neurona [a=" + a + " delta=" + delta + " err=" + error + "]";
         }
     }
 }
