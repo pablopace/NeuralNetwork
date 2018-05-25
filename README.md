@@ -45,5 +45,4 @@ List<DataSet> ds = new List<DataSet>();
 
 ## Acknowledgments
 
-* NetworkHelper class (user interface) was develop by Emiliano Musso https://social.technet.microsoft.com/wiki/contents/articles/36428.basis-of-neural-networks-in-c.aspx and adpated to my Net clases 
-just minor modifications ware made
+* NetworkHelper class (user interface) was develop by Emiliano Musso https://social.technet.microsoft.com/wiki/contents/articles/36428.basis-of-neural-networks-in-c.aspx and adpated to my Net clases. Just minor modifications ware made to the class
